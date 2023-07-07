@@ -3,5 +3,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   resources :employees 
-  get "/department/:id/employees", to: "employees#get_employees_by_department"
+
+  resources :departments do
+    get :get_employees, on: :member
+  end
 end
