@@ -2,8 +2,8 @@ class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :update, :destroy]
 
   def index
-    employee = Employee.all
-    render json: {employees: employee}
+    employees = Employee.all
+    render json: employees,each_serializer: EmployeeSerializer
   end
 
   def show

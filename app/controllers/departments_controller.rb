@@ -2,14 +2,14 @@ class DepartmentsController < ApplicationController
   before_action :set_department, only: [:show, :update, :destroy]
 
   def index
-    department = Department.all
-    render json: {departments: department}
+    departments = Department.all
+    render json: departments ,each_serializer: DepartmentSerializer
   end
 
   def get_employees
     department = Department.find(params[:id])
     employees = department.employees
-    render json: employees, status:200 
+    render json: employees, each_serializer: EmployeeSerializer, status:200 
   end
 
   def show
@@ -34,11 +34,8 @@ class DepartmentsController < ApplicationController
   end
 
   def destroy 
-    if @department.destroy
-      head :no_content
-    else
-      render json: @department.errors.messages, status: :unprocessable_entity
-    end
+    @department.destroy
+    head :no_content
   end
 
   private
