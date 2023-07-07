@@ -7,7 +7,7 @@ class EmployeesController < ApplicationController
   end
 
   def show
-    render json: @employee
+    render json: @employee.to_json(include: :department )
   end
 
   def create
@@ -15,12 +15,12 @@ class EmployeesController < ApplicationController
     if employee.save
       render json: employee, status: :created
     else
-      render json: employee.errors, status: :unprocessable_entity
+      render json: employee.errors.messages, status: :unprocessable_entity
     end
   end
   
   def update
-    if  @employee.update(employee_params)
+    if @employee.update(employee_params)
       render json: @employee
     else
       render json: @employee.errors.messages, status: :unprocessable_entity
@@ -28,17 +28,14 @@ class EmployeesController < ApplicationController
   end
 
   def destroy 
-    if @employee.destroy
+      @employee.destroy
       head :no_content
-    else
-      render json: @employee.errors.messages, status: :unprocessable_entity
-    end
   end
 
   private
   
   def employee_params
-    params.require(:employee).permit(:name, :email, :password )
+    params.require(:employee).permit(:name, :email, :password , :department_id)
   end
 
   def set_employee
