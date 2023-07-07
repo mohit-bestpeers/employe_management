@@ -5,3 +5,4 @@ RSpec.describe Employee, type: :model do
     it { should belong_to(:department) }
   end
 end
+
