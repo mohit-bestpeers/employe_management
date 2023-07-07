@@ -7,8 +7,7 @@ class EmployeesController < ApplicationController
   end
 
   def show
-    employee = Employee.find(params[:id])
-    render json: employee
+    render json:  @employee
   end
 
   def create
@@ -21,26 +20,29 @@ class EmployeesController < ApplicationController
   end
   
   def update
-    employee = Employee.find(params[:id])
-
-    if employee.update(employee_params)
-      render json: employee
+  
+    if  @employee.update(employee_params)
+      render json:  @employee
     else
-      render json: employee.errors, status: :unprocessable_entity
+      render json:  @employee.errors, status: :unprocessable_entity
     end
   end
 
   def destroy 
-    employee = Employee.find(params[:id])
-    employee.destroy
+    @employee.destroy
     head :no_content
   end
 
-   
+  def get_employees_by_department
+    department = Department.find(params[:id])
+    employees = department.employees
+    render json: employees, status:200 
+  end
+
   private
   
   def employee_params
-    params.require(:employee).permit(:name, :email, :password)
+    params.require(:employee).permit(:name, :email, :password ,:department_id)
   end
 
   def set_employee
