@@ -10,8 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_10_073127) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_10_104712) do
   create_table "departments", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "designations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -45,11 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_10_073127) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.integer "department_id", null: false
+    t.integer "designation_id", null: false
     t.index ["department_id"], name: "index_employees_on_department_id"
+    t.index ["designation_id"], name: "index_employees_on_designation_id"
     t.index ["email"], name: "index_employees_on_email", unique: true
     t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
   end
 
   add_foreign_key "details", "employees"
   add_foreign_key "employees", "departments"
+  add_foreign_key "employees", "designations"
 end

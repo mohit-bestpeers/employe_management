@@ -45,12 +45,16 @@ class EmployeesController < ApplicationController
   private
   
   def employee_params
-    params.require(:employee).permit(:name, :email, :password , :department_id)
+    params.require(:employee).permit(:name, :email, :password , :department_id, :designation_id)
   end
 
   def detail_params
     params.permit(detail: [:father_name, :mother_name, :date_of_birth, :gender, :blood_group,
      :contact, :emergency_contact, :skills, :date_of_joining, :present_address, :permanent_address]).fetch(:detail, {}).permit!
+  end
+
+  def designation_params
+    params.require(:designation).permit(:name)
   end
   
 
