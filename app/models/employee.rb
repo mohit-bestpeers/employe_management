@@ -3,4 +3,5 @@ class Employee < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   belongs_to :department
+  has_one :detail
 end

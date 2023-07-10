@@ -7,11 +7,14 @@ class EmployeesController < ApplicationController
   end
 
   def show
-    render json: @employee.to_json(include: :department )
+    render json: @employee
   end
 
   def create
     employee = Employee.new(employee_params)
+    if params[:detail].present?
+      @detail = @employee.build_detail(detail_params)
+    end
     if employee.save
       render json: employee, status: :created
     else
@@ -37,6 +40,12 @@ class EmployeesController < ApplicationController
   def employee_params
     params.require(:employee).permit(:name, :email, :password , :department_id)
   end
+
+  def detail_params
+    params.permit(detail: [:father_name, :mother_name, :date_of_birth,
+     :contact, :emergency_contact, :skills, :date_of_joining, :present_address, :permanent_address]).fetch(:detail, {}).permit!
+  end
+  
 
   def set_employee
     @employee = Employee.find(params[:id])
