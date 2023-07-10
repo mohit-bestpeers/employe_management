@@ -7,4 +7,8 @@ Rails.application.routes.draw do
   resources :departments do
     get :get_employees, on: :member
   end
+
+  resources :designations do
+    get :get_designations, on: :member
+  end
 end

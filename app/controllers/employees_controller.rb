@@ -52,12 +52,7 @@ class EmployeesController < ApplicationController
     params.permit(detail: [:father_name, :mother_name, :date_of_birth, :gender, :blood_group,
      :contact, :emergency_contact, :skills, :date_of_joining, :present_address, :permanent_address]).fetch(:detail, {}).permit!
   end
-
-  def designation_params
-    params.require(:designation).permit(:name)
-  end
   
-
   def set_employee
     @employee = Employee.find(params[:id])
   end
