@@ -13,7 +13,7 @@ class EmployeesController < ApplicationController
   def create
     employee = Employee.new(employee_params)
     if params[:detail].present?
-      @detail = @employee.build_detail(detail_params)
+      detail = employee.build_detail(detail_params)
     end
     if employee.save
       render json: employee, status: :created
@@ -23,6 +23,13 @@ class EmployeesController < ApplicationController
   end
   
   def update
+    if params[:detail].present?
+      if @employee.detail.nil?
+        @employee.create_detail(detail_params)
+      else
+        @employee.detail.update(detail_params)
+      end
+    end
     if @employee.update(employee_params)
       render json: @employee
     else
@@ -42,7 +49,7 @@ class EmployeesController < ApplicationController
   end
 
   def detail_params
-    params.permit(detail: [:father_name, :mother_name, :date_of_birth,
+    params.permit(detail: [:father_name, :mother_name, :date_of_birth, :gender, :blood_group,
      :contact, :emergency_contact, :skills, :date_of_joining, :present_address, :permanent_address]).fetch(:detail, {}).permit!
   end
   
