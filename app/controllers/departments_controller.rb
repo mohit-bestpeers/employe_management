@@ -9,7 +9,11 @@ class DepartmentsController < ApplicationController
   def get_employees
     department = Department.find(params[:id])
     employees = department.employees
-    render json: employees, each_serializer: EmployeeSerializer, status:200 
+    count = employees.count
+    render json:  {
+      employees: employees,
+      count: count
+    }, each_serializer: EmployeeSerializer, status:200 
   end
 
   def show
