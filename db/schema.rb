@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_07_11_075123) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "departments", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -33,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_075123) do
     t.string "date_of_joining"
     t.string "present_address"
     t.string "permanent_address"
-    t.integer "employee_id", null: false
+    t.bigint "employee_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "gender"
@@ -50,8 +53,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_075123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.integer "department_id", null: false
-    t.integer "designation_id", null: false
+    t.bigint "department_id", null: false
+    t.bigint "designation_id", null: false
     t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["designation_id"], name: "index_employees_on_designation_id"
     t.index ["email"], name: "index_employees_on_email", unique: true
@@ -59,8 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_075123) do
   end
 
   create_table "employees_tasks", force: :cascade do |t|
-    t.integer "employee_id", null: false
-    t.integer "task_id", null: false
+    t.bigint "employee_id", null: false
+    t.bigint "task_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_employees_tasks_on_employee_id"

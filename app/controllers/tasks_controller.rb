@@ -13,11 +13,7 @@ class TasksController < ApplicationController
 
   def create
     task = @employee.tasks.create(task_params)
-    if task
-      render json: task, status: :created
-    else
-      render json: task.errors.messages
-    end
+    render json: task, status: :created
   end
 
   def update
