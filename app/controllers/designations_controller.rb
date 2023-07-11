@@ -6,16 +6,6 @@ class DesignationsController < ApplicationController
     render json: designations ,each_serializer: DesignationSerializer
   end
 
-  def get_designations
-    designation = Designation.find(params[:id])
-    employees = designation.employees
-    count = employees.count
-    render json:  {
-      employees: employees,
-      count: count
-    }, each_serializer: EmployeeSerializer, status:200 
-  end
-
   def show
     render json: @designation
   end
@@ -42,6 +32,16 @@ class DesignationsController < ApplicationController
     head :no_content
   end
 
+  def get_employees
+    designation = Designation.find(params[:id])
+    employees = designation.employees
+    count = employees.count
+    render json:  {
+      employees: employees,
+      count: count
+    }, each_serializer: EmployeeSerializer, status:200 
+  end
+
   private
   
   def designation_params
@@ -52,3 +52,4 @@ class DesignationsController < ApplicationController
     @designation = Designation.find(params[:id])
   end
 end
+
