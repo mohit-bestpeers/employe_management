@@ -6,16 +6,6 @@ class DepartmentsController < ApplicationController
     render json: departments ,each_serializer: DepartmentSerializer
   end
 
-  def get_employees
-    department = Department.find(params[:id])
-    employees = department.employees
-    count = employees.count
-    render json:  {
-      employees: employees,
-      count: count
-    }, each_serializer: EmployeeSerializer, status:200 
-  end
-
   def show
     render json: @department
   end
@@ -42,6 +32,16 @@ class DepartmentsController < ApplicationController
     head :no_content
   end
 
+  def get_employees
+    department = Department.find(params[:id])
+    employees = department.employees
+    count = employees.count
+    render json:  {
+      employees: employees,
+      count: count
+    }, each_serializer: EmployeeSerializer, status:200 
+  end
+
   private
   
   def department_params
@@ -52,3 +52,4 @@ class DepartmentsController < ApplicationController
     @department = Department.find(params[:id])
   end
 end
+

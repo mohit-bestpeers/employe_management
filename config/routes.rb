@@ -2,13 +2,19 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  resources :employees 
+  resources :employees do
+    resources :tasks
+  end
 
   resources :departments do
-    get :get_employees, on: :member
+    member do
+      get :get_employees
+    end
   end
 
   resources :designations do
-    get :get_designations, on: :member
+    member do
+      get :get_employees
+    end
   end
 end
