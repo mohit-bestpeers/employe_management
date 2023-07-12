@@ -3,7 +3,7 @@ class DepartmentsController < ApplicationController
 
   def index
     departments = Department.all
-    render json: departments ,each_serializer: DepartmentSerializer
+    render json: departments, each_serializer: DepartmentSerializer
   end
 
   def show
