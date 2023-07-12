@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   resources :employees do
     resources :tasks
+    resources :attendances
   end
 
   resources :departments do

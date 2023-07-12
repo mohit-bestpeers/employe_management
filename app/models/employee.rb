@@ -6,4 +6,5 @@ class Employee < ApplicationRecord
   belongs_to :designation
   has_one :detail
   has_and_belongs_to_many :tasks
+  has_many :attendances
 end
