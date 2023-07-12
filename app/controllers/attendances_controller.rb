@@ -28,6 +28,10 @@ class AttendancesController < ApplicationController
     end
   end
 
+  def destroy
+    @attendance.destroy
+  end
+
   private
 
   def attendance_params
