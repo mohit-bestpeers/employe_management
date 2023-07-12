@@ -13,11 +13,18 @@ class AttendancesController < ApplicationController
 
   def create
     attendance = @employee.attendances.new(attendance_params)
-  
     if attendance.save
       render json: attendance, status: :created
     else
       render json: attendance.errors.messages, status: :unprocessable_entity
+    end
+  end
+
+  def update 
+    if @attendance.update(attendance_params)
+      render json:@attendance
+    else
+      render json: @attendance.errors.messages
     end
   end
 
