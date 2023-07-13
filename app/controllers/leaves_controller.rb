@@ -39,11 +39,11 @@ class LeavesController < ApplicationController
 
   def leaves_approve
     leave = Leave.where(mail_to: @employee.email ,id:params[:id])
-      if leave.update(leave_params)
-        render json:leave
-      else
-        render json: leave.errors.messages
-      end
+    if leave.update(leave_params)
+      render json:leave
+    else
+      render json: leave.errors.messages
+    end
   end
 
   private
@@ -59,5 +59,4 @@ class LeavesController < ApplicationController
   def set_leave
     @leave = @employee.leaves.find(params[:id])
   end 
-
 end
