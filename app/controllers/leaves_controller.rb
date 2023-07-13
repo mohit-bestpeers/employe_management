@@ -1,6 +1,6 @@
 class LeavesController < ApplicationController
-  before_action :set_employee, only: [:index,:show, :update, :destroy, :create, :leaves_applied , :leaves_approve]
-  before_action :set_leave, only: [:show, :update, :destroy ]
+  before_action :set_employee
+  before_action :set_leave, only: [:show, :update, :destroy]
 
   def index
     leaves = @employee.leaves
@@ -12,7 +12,7 @@ class LeavesController < ApplicationController
   end
 
   def create
-    leave= @employee.leaves.new(leave_params)
+    leave = @employee.leaves.new(leave_params)
     if leave.save
       render json: leave, status: :created
     else
@@ -32,24 +32,26 @@ class LeavesController < ApplicationController
     @leave.destroy
   end
   
-  def leaves_applied
+  def applied_leaves
     leaves = Leave.where(mail_to: @employee.email)
     render json: leaves 
   end 
 
-  def leaves_approve
-    leave = Leave.where(mail_to: @employee.email ,id:params[:id])
-    if leave.update(leave_params)
-      render json:leave
-    else
-      render json: leave.errors.messages
+  def approve_leaves
+    leave = Leave.find_by(mail_to: @employee.email ,id:params[:id])
+    if leave
+      if leave.update(status: params[:status])
+        render json:leave
+      else
+        render json: leave.errors.messages
+      end
     end
   end
 
   private
 
   def leave_params
-    params.require(:leave).permit(:leave_type, :from_date, :to_date, :days, :mail_to, :reason, :from_session, :to_session ,:status)
+    params.require(:leave).permit(:leave_type, :from_date, :to_date, :days, :mail_to, :reason, :from_session, :to_session)
   end
 
   def set_employee

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  get '/employees/:employee_id/leaves_applied', to: 'leaves#leaves_applied'
-  patch '/employees/:employee_id/leaves_approve/:id', to: 'leaves#leaves_approve'
+  get '/employees/:employee_id/applied_leaves', to: 'leaves#applied_leaves'
+  patch '/employees/:employee_id/approve_leaves/:id', to: 'leaves#approve_leaves'
   # Defines the root path route ("/")
   resources :employees do
     resources :tasks
