@@ -38,14 +38,14 @@ class EmployeesController < ApplicationController
   end
 
   def destroy 
-      @employee.destroy
-      head :no_content
+    @employee.destroy
+    head :no_content
   end
 
   private
   
   def employee_params
-    params.require(:employee).permit(:name, :email, :password , :department_id, :designation_id)
+    params.require(:employee).permit(:name, :email, :password , :department_id, :designation_id, :package, :experience ,:package)
   end
 
   def detail_params

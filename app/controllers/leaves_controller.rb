@@ -40,7 +40,8 @@ class LeavesController < ApplicationController
   def approve_leaves
     leave = Leave.find_by(mail_to: @employee.email ,id:params[:id])
     if leave
-      if leave.update(status: params[:status])
+      if leave.update(status: params[:status], to_date: params[:to_date],from_date: params[:from_date])
+        days = leave.accepted_leaves
         render json:leave
       else
         render json: leave.errors.messages

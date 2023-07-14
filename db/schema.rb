@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_12_112946) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_14_081132) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_112946) do
     t.string "name"
     t.bigint "department_id", null: false
     t.bigint "designation_id", null: false
+    t.string "package"
+    t.decimal "experience"
     t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["designation_id"], name: "index_employees_on_designation_id"
     t.index ["email"], name: "index_employees_on_email", unique: true
@@ -86,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_112946) do
   create_table "leaves", force: :cascade do |t|
     t.datetime "from_date"
     t.datetime "to_date"
-    t.integer "days"
+    t.decimal "days"
     t.string "mail_to"
     t.string "reason"
     t.bigint "employee_id", null: false
@@ -97,6 +99,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_112946) do
     t.integer "status", default: 0
     t.integer "leave_type", default: 0
     t.index ["employee_id"], name: "index_leaves_on_employee_id"
+  end
+
+  create_table "salaries", force: :cascade do |t|
+    t.string "increment_package", default: "0"
+    t.string "package"
+    t.string "total_salary"
+    t.string "salary_amount"
+    t.datetime "salary_month"
+    t.decimal "total_leave", default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "employee_id", null: false
+    t.index ["employee_id"], name: "index_salaries_on_employee_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -116,4 +131,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_12_112946) do
   add_foreign_key "employees_tasks", "employees"
   add_foreign_key "employees_tasks", "tasks"
   add_foreign_key "leaves", "employees"
+  add_foreign_key "salaries", "employees"
 end
