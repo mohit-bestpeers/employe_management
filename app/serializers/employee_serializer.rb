@@ -4,7 +4,9 @@ class EmployeeSerializer < ActiveModel::Serializer
     {
       id: object.id,
       name: object.name,
-      email: object.email
+      email: object.email,
+      package: object.package,
+      experience:object.experience
     }
   end
   belongs_to :designation , serializer: DesignationSerializer 
