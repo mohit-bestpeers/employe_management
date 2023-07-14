@@ -4,11 +4,7 @@ class SalarysController < ApplicationController
 
   def index
     salarys = @employee.salarys
-    if salarys
     render json: salarys, each_serializer: SalarySerializer 
-    else
-      render json: salarys.error.messages
-    end
   end
   
   def show
@@ -25,7 +21,7 @@ class SalarysController < ApplicationController
   end
 
   private
-    
+
   def set_employee
     @employee = Employee.find(params[:employee_id])
   end
